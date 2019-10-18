@@ -27,6 +27,8 @@ export type TabBarOptions = {
   tabStyle: any,
   adaptive?: boolean,
   style: any,
+  containerStyle: any,
+  pointerEvents?: "auto" | "none",
 };
 
 type Props = TabBarOptions & {
@@ -279,6 +281,8 @@ class TabBarBottom extends React.Component<Props, State> {
       safeAreaInset,
       style,
       tabStyle,
+      containerStyle,
+      pointerEvents,
     } = this.props;
 
     const { routes } = navigation.state;
@@ -311,9 +315,10 @@ class TabBarBottom extends React.Component<Props, State> {
                 position: this.state.keyboard ? 'absolute' : null,
               }
             : null,
+            containerStyle,
         ]}
         pointerEvents={
-          keyboardHidesTabBar && this.state.keyboard ? 'none' : 'auto'
+          pointerEvents ? pointerEvents : (keyboardHidesTabBar && this.state.keyboard ? 'none' : 'auto')
         }
         onLayout={this._handleLayout}
       >
